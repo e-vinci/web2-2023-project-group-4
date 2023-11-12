@@ -1,6 +1,77 @@
 const HomePage = () => {
-  const main = document.querySelector('main');
-  main.innerHTML = 'Deal with the content of your HomePage';
+  renderPage();
 };
+
+function renderPage() {
+  const main = document.querySelector('main');
+
+  main.innerHTML = `
+  <div>
+      <!-- first part : 'apprenez à coder' -->
+      <div class="card border-info first">
+        <div class="card-body text-center">
+          <h4 class="card-title ">Apprenez à coder en vous amusant</h4>
+          <p class="card-text">Si tu as du mal à comprendre les algorithmes ou les modulo en math, alors cette page est faite pour toi !</p>
+        </div>
+      </div>
+      <!-- second part : divided in 2 -->
+      <div class="container text-center second">
+          <div class="row align-items-start">
+              <!-- description of the site and the story of the game -->
+              <div class="col">
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, quam fugit! Vero, exercitationem. Veritatis in architecto nemo officiis, aut eveniet? Natus hic maiores molestias neque vero iste eos ipsum asperiores?</p>
+              </div>
+              <!-- show the visuals of the 2 games -->
+              <div class="col">
+                  <div id="carouselExample" class="carousel slide">
+                      <div class="carousel-inner">
+                      <div class="carousel-item active">
+                          <img src="..." class="d-block w-100" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                          <img src="..." class="d-block w-100" alt="...">
+                      </div>
+                      </div>
+                      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- third part : link to the inscription form -->
+      <div class="container third">
+          <!-- title -->
+          <div class="row text-center">
+              <h4>Créez un compte pour bénéficier de ces avantages :</h4>
+          </div>
+          <!-- benefits description -->
+          <div class="row">
+              <!-- first benefit -->
+              <div class="col border">
+                  <h6>Point de contrôle :</h6>
+                  <p>Enregistrez votre progression pour ne pas la perdre.</p>
+              </div>
+              <!-- second benefit -->
+              <div class="col border">
+                  <h6>Classement :</h6>
+                  <p>Vous pouvez suivre votre classement avec vos scores obtenus.</p>
+              </div>
+              <!-- third benefit -->
+              <div class="col border">
+                  <h6>Accès à tout :</h6>
+                  <p>Vous pouvez accéder à des minis projets pour vous challenger.</p>
+              </div>
+          </div>
+      </div>
+  </div>
+  `;
+
+}
 
 export default HomePage;

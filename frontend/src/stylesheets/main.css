@@ -1,0 +1,18 @@
+.first{
+    margin : 5rem;
+}
+
+.second {
+    margin-left: 3rem;
+    margin-right: 3rem;
+    margin-bottom: 5rem;
+}
+
+.third .row{
+    margin-bottom: 1rem;
+}
+
+.third .col{
+    margin-left : 1rem;
+    margin-right: 1rem;
+}

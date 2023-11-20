@@ -47,6 +47,12 @@ const GamePage = () => {
   main.innerHTML = gamePageContent;
   main.style.display = 'flex';
   main.style.justifyContent = 'center';
+
+  const gameAlgoPage = document.querySelector('[href="/lien-vers-jeu-1"]');
+  gameAlgoPage.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.location.href = '/game/algo';
+  })
 };
 
 export default GamePage;

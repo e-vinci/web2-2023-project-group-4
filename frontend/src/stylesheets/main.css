@@ -1,5 +1,11 @@
 .first{
     margin : 5rem;
+    /*
+    background-color: rgb(143,47,224);
+    background-color: rgb(106,6,60);
+    background-color: rgb(255,140,244);
+    */
+    background-color: rgb(255,140,244);
 }
 
 .second {

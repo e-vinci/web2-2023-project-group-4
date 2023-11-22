@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
+import logoCat from '../../assets/logo_ebauche.png';
 
 const Navbar = () => {
   const navbarWrapper = document.querySelector('#navbarWrapper');
@@ -7,7 +8,7 @@ const Navbar = () => {
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <!--TODO à changer pour ajouter le Logo-->
-          <a class="navbar-brand" href="#">Logo</a>        
+          <img class="logo-navbar" src="${logoCat}">     
           <a class="navbar-brand" href="#">CatLearning</a>
           <button
             class="navbar-toggler"

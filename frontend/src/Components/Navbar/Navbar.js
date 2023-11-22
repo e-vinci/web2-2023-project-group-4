@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
 import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
+import logoCat from '../../assets/logo_ebauche.png';
 
 const SITE_NAME = 'CatLearning';
 
@@ -14,9 +15,8 @@ function renderNavbar(){
   const anonymousUserNavbar = `
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <!--TODO à changer pour ajouter le Logo-->
-          <a class="navbar-brand" href="#">Logo</a>        
-          <a class="navbar-brand" href="#">${SITE_NAME}</a>
+        <img class="logo-navbar" src="${logoCat}"> 
+        <a class="navbar-brand" href="#">${SITE_NAME}</a>
           <button
             class="navbar-toggler"
             type="button"

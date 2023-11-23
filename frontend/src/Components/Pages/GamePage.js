@@ -1,4 +1,5 @@
 import game2Pic from '../../assets/math.jpg';
+import game1Pic from '../../assets/AlgoIntro.png';
 // import game1Pic from '../../assets/3a7be1d8c3752396876e4195f58dd32d.jpg'
 
 const GamePage = () => {
@@ -14,9 +15,9 @@ const GamePage = () => {
   <div class="container my-5">
     <div class="row">
       <div class="col mb-4">
-        <a href="/lien-vers-jeu-1" class="text-decoration-none">
+        <a href="/lien-vers-IntroAlgo" class="text-decoration-none">
           <div class="card">
-            <img src="${game2Pic}" class="card-img-top h-100" alt="Image du Jeu 1" style="object-fit: cover;">
+            <img src="${game1Pic}" class="card-img-top h-100" alt="Image du Jeu 1" style="object-fit: cover; ">
             <div class="card-body">
               <h5 class="text-center">Nom du jeu 1</h5>
               <h6 class="text-center">Chemin du chat</h6>
@@ -27,9 +28,9 @@ const GamePage = () => {
         </a>
       </div>
       <div class="col mb-4">
-        <a href="/lien-vers-jeu-2" class="text-decoration-none">
+        <a href="/lien-vers-IntroModulo" class="text-decoration-none">
           <div class="card">
-            <img src=${game2Pic} class="card-img-top h-100" alt="Image du Jeu 2" style="object-fit: cover;">
+            <img src=${game2Pic} class="card-img-top h-100" alt="Image du Jeu 2" style="object-fit: cover; ">
             <div class="card-body">
               <h5 class="text-center">Nom du jeu 2</h5>
               <h6 class="text-center">Analyseur de codes modulo</h6>
@@ -48,10 +49,16 @@ const GamePage = () => {
   main.style.display = 'flex';
   main.style.justifyContent = 'center';
 
-  const gameAlgoPage = document.querySelector('[href="/lien-vers-jeu-1"]');
-  gameAlgoPage.addEventListener('click', (event) => {
+  const gameIntroAlgoPage = document.querySelector('[href="/lien-vers-IntroAlgo"]');
+  gameIntroAlgoPage.addEventListener('click', (event) => {
     event.preventDefault();
-    window.location.href = '/game/algo';
+    window.location.href = '/game/algoIntro';
+  })
+
+  const gameIntroModuloPage = document.querySelector('[href="/lien-vers-IntroModulo"]');
+  gameIntroModuloPage.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.location.href = '/game/moduloIntro';
   })
 };
 

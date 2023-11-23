@@ -2,13 +2,13 @@
 
 const AlgoGamePage = () => {
   const content = `
-    <div class="container mt-4">
-      <div class="row">
-        <div class="col">
+    <div class="container algo mt-4">
+      <div class="row algo">
+        <div class="col-algo">
           <div id="option1" class="draggable alert alert-primary-aglo" draggable="true" data-action="forward">Forward</div>
           <div id="option2" class="draggable alert alert-primary-aglo" draggable="true" data-action="turn-left">Left</div>
         </div>
-        <div class="col">
+        <div class="col-algo">
           <div id="option3" class="draggable alert alert-primary-aglo" draggable="true" data-action="turn-right">Right</div>
           <div id="option4" class="draggable alert alert-primary-aglo" draggable="true" data-action="repeat">Repeat</div>
           <div id="droppable" class="alert alert-secondary">

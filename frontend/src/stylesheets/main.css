@@ -36,15 +36,15 @@ body{
 }
 
 /* Algo game page */
-.container {
+.container .algo {
   margin-top: 20px;
 }
   
-.row {
+.row .algo {
   display: flex;
 }
   
-.col {
+.col-algo {
   flex: 1;
   padding: 10px;
 }
@@ -98,4 +98,4 @@ body{
 }
 
 /* end of Algo game page */
-
+  

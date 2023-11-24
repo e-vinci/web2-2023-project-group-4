@@ -27,7 +27,7 @@ const GamePage = () => {
         </a>
       </div>
       <div class="col mb-4">
-        <a href="/lien-vers-jeu-2" class="text-decoration-none">
+        <a href="/modulo" class="text-decoration-none">
           <div class="card">
             <img src=${game2Pic} class="card-img-top h-100" alt="Image du Jeu 2" style="object-fit: cover;">
             <div class="card-body">
@@ -52,7 +52,13 @@ const GamePage = () => {
   gameAlgoPage.addEventListener('click', (event) => {
     event.preventDefault();
     window.location.href = '/game/algo';
-  })
+  });
+
+  const gameModuloPage = document.querySelector('[href="/modulo"]');
+  gameModuloPage.addEventListener('click',(event) => {
+    event.preventDefault();
+    window.location.href = '/game/modulo';
+  });
 };
 
 export default GamePage;

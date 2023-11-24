@@ -54,12 +54,12 @@ body{
   margin-bottom: 10px;
 }
   
-.alert-primary-aglo {
+.alert-primary-algo {
   background-color: #3498db;
   color: #fff;
 }
   
-.alert-secondary-aglo {
+.alert-secondary-algo {
   background-color: #95a5a6;
   color: #fff;
 }
@@ -81,7 +81,7 @@ body{
   margin-top: 20px;
 }
   
-.cell-aglo {
+.cell-algo {
   height: 50px;
   width: 50px;
   background-color: #ecf0f1;
@@ -91,7 +91,7 @@ body{
   justify-content: center;
 }
   
-.cat-aglo {
+.cat-algo {
   background-color: #e74c3c !important; /* Add !important to override other styles */
   color: #fff;
   font-weight: bold;

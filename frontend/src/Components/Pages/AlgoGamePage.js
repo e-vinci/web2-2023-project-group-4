@@ -1,33 +1,31 @@
-// JavaScript (AlgoGamePage.js)
-
 const AlgoGamePage = () => {
   const content = `
     <div class="container algo mt-4">
       <div class="row algo">
         <div class="col-algo">
-          <div id="option1" class="draggable alert alert-primary-aglo" draggable="true" data-action="forward">Forward</div>
-          <div id="option2" class="draggable alert alert-primary-aglo" draggable="true" data-action="turn-left">Left</div>
+          <div id="option1" class="draggable alert alert-primary-algo" draggable="true" data-action="forward">Forward</div>
+          <div id="option2" class="draggable alert alert-primary-algo" draggable="true" data-action="turn-left">Left</div>
         </div>
         <div class="col-algo">
-          <div id="option3" class="draggable alert alert-primary-aglo" draggable="true" data-action="turn-right">Right</div>
-          <div id="option4" class="draggable alert alert-primary-aglo" draggable="true" data-action="repeat">Repeat</div>
-          <div id="droppable" class="alert alert-secondary">
+          <div id="option3" class="draggable alert alert-primary-algo" draggable="true" data-action="turn-right">Right</div>
+          <div id="option4" class="draggable alert alert-primary-algo" draggable="true" data-action="repeat">Repeat</div>
+          <div id="droppable" class="alert alert-secondary-algo">
             Drop here
             <button id="executeButton">Move</button>
           </div>
         </div>
       </div>
     </div>
-    <div class="grid-algo" id = "gridAlgoGame">
-      <div class="cell-aglo" id="cell.algoPage-0">0</div>
-      <div class="cell-aglo" id="cell.algoPage-1">1</div>
-      <div class="cell-aglo" id="cell.algoPage-2">2</div>
-      <div class="cell-aglo" id="cell.algoPage-3">3</div>
-      <div class="cell-aglo" id="cell.algoPage-4">4</div>
-      <div class="cell-aglo" id="cell.algoPage-5">5</div>
-      <div class="cell-aglo" id="cell.algoPage-6">6</div>
-      <div class="cell-aglo" id="cell.algoPage-7">7</div>
-      <div class="cell-aglo" id="cell.algoPage-8">8</div>
+    <div class="grid-algo" id="gridAlgoGame">
+      <div class="cell-algo" id="cell.algoPage-0">0</div>
+      <div class="cell-algo" id="cell.algoPage-1">1</div>
+      <div class="cell-algo" id="cell.algoPage-2">2</div>
+      <div class="cell-algo" id="cell.algoPage-3">3</div>
+      <div class="cell-algo" id="cell.algoPage-4">4</div>
+      <div class="cell-algo" id="cell.algoPage-5">5</div>
+      <div class="cell-algo" id="cell.algoPage-6">6</div>
+      <div class="cell-algo" id="cell.algoPage-7">7</div>
+      <div class="cell-algo" id="cell.algoPage-8">8</div>
     </div>`;
 
   const main = document.querySelector('main');
@@ -59,9 +57,18 @@ const AlgoGamePage = () => {
       e.preventDefault();
       const data = e.dataTransfer.getData('text/plain');
       if (data) {
-        const newAction = document.createElement('div');
-        newAction.innerText = data;
-        droppable.appendChild(newAction);
+        if (data === 'repeat') {
+          const repeatCount = prompt('Enter the number of repetitions:');
+          if (repeatCount !== null) {
+            const newAction = document.createElement('div');
+            newAction.innerText = `repeat ${repeatCount}`;
+            droppable.appendChild(newAction);
+          }
+        } else {
+          const newAction = document.createElement('div');
+          newAction.innerText = data;
+          droppable.appendChild(newAction);
+        }
       }
     });
 
@@ -72,34 +79,37 @@ const AlgoGamePage = () => {
   }
 
   function executeActions(actions) {
-    const chatPosition = { x: 0, y: 0 }; // Define chatPosition here
-    let direction = 'right'; // Define direction here
-    const repeatCount = 1;
+    const chatPosition = { x: 0, y: 0 };
+    let direction = 'right';
 
     const intervalId = setInterval(() => {
       if (actions.length > 0) {
         const action = actions.shift();
-        executeAction(action);
+
+        if (action.startsWith('repeat')) {
+          const parts = action.split(' ');
+          const repeatValue = parseInt(parts[1], 10) || 0;
+          for (let i = 0; i < repeatValue-1; i += 1) {
+            executeAction(actions[0]); // Execute the next action in the repeat loop
+          }
+        } else {
+          executeAction(action);
+        }
       } else {
-        clearInterval(intervalId); // Stop the interval when there are no more actions
+        clearInterval(intervalId);
       }
-    }, 1000); // Adjust the interval as needed
+    }, 1000);
 
     function executeAction(action) {
       switch (action) {
         case 'forward':
-          for (let i = 0; i < repeatCount; i += 1) {
-            moveForward();
-          }
+          moveForward();
           break;
         case 'turn-left':
           direction = rotateLeft(direction);
           break;
         case 'turn-right':
           direction = rotateRight(direction);
-          break;
-        case 'repeat':
-          // You can handle repeat logic here if needed
           break;
         default:
           console.log(`Unknown action: ${action}`);
@@ -108,10 +118,9 @@ const AlgoGamePage = () => {
       const catCellId = `cell.algoPage-${chatPosition.x + 3 * chatPosition.y}`;
       const catCell = document.getElementById(catCellId);
 
-      // Remove 'cat' class from all cells
-      document.querySelectorAll('.cell-aglo').forEach(cell => cell.classList.remove('cat-aglo'));
+      document.querySelectorAll('.cell-algo').forEach(cell => cell.classList.remove('cat-algo'));
 
-      catCell.classList.add('cat-aglo');
+      catCell.classList.add('cat-algo');
       console.log('Current position of the cat:', chatPosition);
     }
 

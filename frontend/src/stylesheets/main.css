@@ -35,6 +35,10 @@ body{
   background-size: cover;
 }
 
+.row .home {
+  background-color: rgb(255,140,244);
+}
+
 /* Algo game page */
 .container .algo {
   margin-top: 20px;

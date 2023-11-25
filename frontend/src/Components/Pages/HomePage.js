@@ -49,23 +49,23 @@ function renderPage() {
       <!-- third part : link to the inscription form -->
       <div class="container third">
           <!-- title -->
-          <div class="row text-center">
-              <h4>Créez un compte pour bénéficier de ces avantages :</h4>
+          <div class="row text-center home">
+              <h4 class="home" >Créez un compte pour bénéficier de ces avantages :</h4>
           </div>
           <!-- benefits description -->
-          <div class="row">
+          <div class="row home">
               <!-- first benefit -->
-              <div class="col border">
+              <div class="col border home">
                   <h6>Point de contrôle :</h6>
                   <p>Enregistrez votre progression pour ne pas la perdre.</p>
               </div>
               <!-- second benefit -->
-              <div class="col border">
+              <div class="col border home">
                   <h6>Classement :</h6>
                   <p>Vous pouvez suivre votre classement avec vos scores obtenus.</p>
               </div>
               <!-- third benefit -->
-              <div class="col border">
+              <div class="col border home">
                   <h6>Accès à tout :</h6>
                   <p>Vous pouvez accéder à des minis projets pour vous challenger.</p>
               </div>

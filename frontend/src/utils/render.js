@@ -6,9 +6,20 @@ const clearPage = () => {
 const renderPageTitle = (title) => {
   if (!title) return;
   const main = document.querySelector('main');
-  const pageTitle = document.createElement('h4');
-  pageTitle.innerText = title;
-  main.appendChild(pageTitle);
+  const pageTitle = 
+   `<div>${title}</div>
+   `;
+   main.innerHTML += pageTitle;
 };
 
-export { clearPage, renderPageTitle };
+function renderHomeButton(){
+  const button = `
+  <div>
+    <button id="home-button">
+
+    </button>
+  </div>`
+  return button
+}
+
+export { clearPage, renderPageTitle, renderHomeButton };

@@ -1,9 +1,12 @@
 // Import your CSS file here
 
+import emptyheart from '../../assets/imgcoeurvidev2.png';
+import heart from '../../assets/coeurv2.png';
+
 let remainingCorrectCalculations = 0; // Set the initial number of correct calculations
 let correctResult = Math.floor(Math.random()* 5)
 let score = 0
-let lives = 3
+let lives = 4
 
 const ModuloGamePage = () => renderPage();
 
@@ -17,18 +20,19 @@ function renderPage() {
 
   main.innerHTML = `
     <!-- Section 1 -->
-    <section class="p-3 mb-0 my-3" style="background-color: #4527A0; color: #FFF;">
+    <!-- color :  #4527A0 -->
+    <section class="p-3 mb-0 my-3" style="background-color: rgba(69, 39, 160, 0.8); color: #FFF;">
       <div class="row">
         <!-- Game Name -->
         <div class="col-md-2">
           <strong> Jeu Modulo</strong> 
         </div>
         <!-- Score -->
-        <div class="col text-center">
+        <div class="col-md-1 text-center">
           <strong> Score : ${score}</strong> 
         </div>
         <!-- Answer -->
-        <div class="col-md-6 text-center" id="answerContent">
+        <div class="col-md-3 text-center" id="answerContent">
           <strong>Réponse: ${correctResult}</strong> 
         </div>
         <!-- the remaining calculations -->
@@ -36,8 +40,8 @@ function renderPage() {
           Reponse restante: ${remainingCorrectCalculations} 
         </div>
         <!-- help button -->
-        <div class="col-md-1 text-center">
-        <strong>Vie: ${lives}</strong> 
+        <div class="col text-center">
+        <strong>Vie:</strong>
         </div>
         <div class="col-md-15 text-center">
         <p id="answerMessage"></p>
@@ -47,7 +51,8 @@ function renderPage() {
     </section>
     
     <!-- Section 2 and 3 side by side -->
-    <section class="row mx-0" style="background-color: #330066;">
+      <!-- color :  #330066 -->
+      <section class="row mx-0" style="background-color: rgba(51, 0, 102, 0.8);  color: #FFF;">
       <!-- Tutorial of the game -->
       <section class="col-md-3 p-3 mb-3" style="background-color: #330066; color: #FFF;">
         <strong>Tutoriel du jeu:</strong>
@@ -94,6 +99,8 @@ function renderPage() {
 
   if(remainingCorrectCalculations === 0) generateAndRenderGrid();
   updateRemainingCalculations();
+
+  updateLives();
 }
 
 // function that handles the click event on a table cell
@@ -170,20 +177,30 @@ function updateRemainingCalculations() {
 
 // fonction that updates the answer
  function updateCorrectAnswer() {
-  const newcorrectAnswerElement = document.querySelector('.col-md-6.text-center strong');
+  const newcorrectAnswerElement = document.querySelector('.col-md-3.text-center strong');
   newcorrectAnswerElement.textContent = `Réponse: ${correctResult}`;
 } 
 
 // function that updates the score
 function updateScore() {
-  const newScoreElement = document.querySelector('.col.text-center strong');
+  const newScoreElement = document.querySelector('.col-md-1.text-center strong');
   newScoreElement.textContent = `Score: ${score}`;
 } 
 
 // function that updates the lives
 function updateLives() {
-  const newLivesElement = document.querySelector('.col-md-1.text-center strong');
-  newLivesElement.textContent = `Vie: ${lives}`;
+  const newLivesElement = document.querySelector('.col.text-center strong');
+  if (lives === 4){
+    newLivesElement.innerHTML  = `Vie:<img src="${heart}" alt="Filled Heart" width = 30 /><img src="${heart}" alt="Filled Heart" width = 30 /><img src="${heart}" alt="Filled Heart" width = 30 /><img src="${heart}" alt="Filled Heart" width = 30 />`
+  } else if (lives === 3){
+    newLivesElement.innerHTML  = `Vie:<img src="${heart}" alt="Filled Heart" width = 30 /><img src="${heart}" alt="Filled Heart" width = 30 /><img src="${heart}" alt="Filled Heart" width = 30 /><img src="${emptyheart}" alt="Empty Heart" width = 30/>`;
+  }else if (lives === 2){
+  newLivesElement.innerHTML  = `Vie:<img src="${heart}" alt="Filled Heart" width = 30 /><img src="${heart}" alt="Filled Heart" width = 30 /><img src="${emptyheart}" alt="Empty Heart" width = 30/><img src="${emptyheart}" alt="Empty Heart" width = 30/>`;
+  } else if (lives === 1){
+  newLivesElement.innerHTML  = `Vie:<img src="${heart}" alt="Filled Heart" width = 30 /><img src="${emptyheart}" alt="Empty Heart" width = 30/><img src="${emptyheart}" alt="Empty Heart" width = 30/><img src="${emptyheart}" alt="Empty Heart" width = 30/>`;
+  } else if (lives === 0){
+  newLivesElement.innerHTML  = `Vie:<img src="${emptyheart}" alt="Empty Heart" width = 30/><img src="${emptyheart}" alt="Empty Heart" width = 30/><img src="${emptyheart}" alt="Empty Heart" width = 30/><img src="${emptyheart}" alt="Empty Heart" width = 30/>`;
+  }
 } 
 
 
@@ -205,7 +222,7 @@ function generateAndRenderGrid() {
     <tr>
       ${renderTableCell()}
       ${renderTableCell()}
-      ${renderTableXCell()}
+      ${renderTableCell()}
     </tr>
     <tr>
       ${renderTableCell()}

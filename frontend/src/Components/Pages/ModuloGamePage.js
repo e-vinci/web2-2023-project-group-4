@@ -1,5 +1,3 @@
-// Import your CSS file here
-
 let remainingCorrectCalculations = 2; // Set the initial number of correct calculations
 
 const ModuloGamePage = () => renderPage();
@@ -11,7 +9,8 @@ function renderPage() {
 
   main.innerHTML = `
     <!-- Section 1 -->
-    <section class="p-3 mb-0" style="background-color: #4527A0; color: #FFF;">
+    <!-- color :  #4527A0 -->
+    <section class="p-3 mb-0" style="background-color: rgba(69, 39, 160, 0.8); color: #FFF;">
       <div class="row">
         <!-- Game Name -->
         <div class="col-md-3">
@@ -37,9 +36,10 @@ function renderPage() {
     </section>
     
     <!-- Section 2 and 3 side by side -->
-    <section class="row mx-0" style="background-color: #330066;">
+    <!-- color :  #330066 -->
+    <section class="row mx-0" style="background-color: rgba(51, 0, 102, 0.8);  color: #FFF;">
       <!-- Tutorial of the game -->
-      <section class="col-md-3 p-3 mb-3" style="background-color: #330066; color: #FFF;">
+      <section class="col-md-3 p-3 mb-3">
         <strong>Tutoriel du jeu:</strong>
         <p>
           Explication de comment jouer le jeu (avec des flèches pour bouger et sélectionner avec la space bar)
@@ -48,7 +48,7 @@ function renderPage() {
         </p>
       </section>
       <!-- The game part -->
-      <section class="col-md-9 p-3 mb-3" style="background-color: #330066; color: #FFF;">
+      <section class="col-md-9 p-3 mb-3">
         <!-- Grid as a table -->
         <table class="table table-bordered table-responsive h-100">
           <tbody>

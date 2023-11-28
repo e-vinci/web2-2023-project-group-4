@@ -1,0 +1,101 @@
+/*navbar*/
+.logo-navbar {
+  width: 3rem;
+  height: auto;
+}
+
+
+/*homePage*/
+.first{
+  margin : 5rem;
+  /*
+  background-color: rgb(143,47,224);
+  background-color: rgb(106,6,60);
+  background-color: rgb(255,140,244);
+  */
+  background-color: rgb(255,140,244);
+}
+
+.second {
+  margin-left: 3rem;
+  margin-right: 3rem;
+  margin-bottom: 5rem;
+}
+
+.third .row{
+  margin-bottom: 1rem;
+}
+
+.third .col{
+  margin-left : 1rem;
+  margin-right: 1rem;
+}
+body{
+  background: url('../img/bscreen.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* Algo game page */
+.container .algo {
+  margin-top: 20px;
+}
+  
+.row .algo {
+  display: flex;
+}
+  
+.col-algo {
+  flex: 1;
+  padding: 10px;
+}
+  
+.draggable {
+  cursor: grab;
+  margin-bottom: 10px;
+}
+  
+.alert-primary-algo {
+  background-color: #3498db;
+  color: #fff;
+}
+  
+.alert-secondary-algo {
+  background-color: #95a5a6;
+  color: #fff;
+}
+  
+#droppable {
+  padding: 10px;
+  text-align: center;
+}
+  
+#executeButton {
+  margin-top: 10px;
+  cursor: pointer;
+}
+  
+.grid-algo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+  
+.cell-algo {
+  height: 50px;
+  width: 50px;
+  background-color: #ecf0f1;
+  border: 1px solid #bdc3c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+  
+.cat-algo {
+  background-color: #e74c3c !important; /* Add !important to override other styles */
+  color: #fff;
+  font-weight: bold;
+}
+
+/* end of Algo game page */
+  

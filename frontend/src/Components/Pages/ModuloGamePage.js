@@ -2,6 +2,8 @@
 
 let remainingCorrectCalculations = 0; // Set the initial number of correct calculations
 let correctResult = Math.floor(Math.random()* 5)
+let score = 0
+let lives = 3
 
 const ModuloGamePage = () => renderPage();
 
@@ -18,8 +20,12 @@ function renderPage() {
     <section class="p-3 mb-0 my-3" style="background-color: #4527A0; color: #FFF;">
       <div class="row">
         <!-- Game Name -->
-        <div class="col-md-3">
+        <div class="col-md-2">
           <strong> Jeu Modulo</strong> 
+        </div>
+        <!-- Score -->
+        <div class="col text-center">
+          <strong> Score : ${score}</strong> 
         </div>
         <!-- Answer -->
         <div class="col-md-6 text-center" id="answerContent">
@@ -27,11 +33,11 @@ function renderPage() {
         </div>
         <!-- the remaining calculations -->
         <div class="col-md-2 text-right">
-          ${remainingCorrectCalculations} restantes
+          Reponse restante: ${remainingCorrectCalculations} 
         </div>
         <!-- help button -->
         <div class="col-md-1 text-center">
-          <button class="btn btn-info">?</button>
+        <strong>Vie: ${lives}</strong> 
         </div>
         <div class="col-md-15 text-center">
         <p id="answerMessage"></p>
@@ -103,12 +109,18 @@ function handleCellClick(cell) {
     if (isCorrect) {
       remainingCorrectCalculations = Math.max(0, remainingCorrectCalculations - 1);
       updateRemainingCalculations();
+      score += 50;
+      updateScore();
 
       if (remainingCorrectCalculations === 0) generateAndRenderGrid();
     }
+    else{
+      lives -= 1;
+      updateLives();
+    }
 
     const answerMessage = document.getElementById('answerMessage');
-    answerMessage.textContent = isCorrect ? 'Correct!' : 'Incorrect. Essaie encore!';
+    answerMessage.textContent = isCorrect ? 'Correct! + 50 points' : 'Incorrect, tu perd un vie. Essaie encore!';
   } else {
     // La cellule a déjà été cliquée, ignorer le clic
     const answerMessage = document.getElementById('answerMessage');
@@ -153,13 +165,25 @@ function renderTableCell() {
 // function that updates the element displaying the remaining number of calculations
 function updateRemainingCalculations() {
   const remainingCalculationsElement = document.querySelector('.col-md-2.text-right');
-  remainingCalculationsElement.textContent = `${remainingCorrectCalculations} restantes`;
+  remainingCalculationsElement.textContent = `Reponse restante:  ${remainingCorrectCalculations}`;
 }
 
-
+// fonction that updates the answer
  function updateCorrectAnswer() {
   const newcorrectAnswerElement = document.querySelector('.col-md-6.text-center strong');
   newcorrectAnswerElement.textContent = `Réponse: ${correctResult}`;
+} 
+
+// function that updates the score
+function updateScore() {
+  const newScoreElement = document.querySelector('.col.text-center strong');
+  newScoreElement.textContent = `Score: ${score}`;
+} 
+
+// function that updates the lives
+function updateLives() {
+  const newLivesElement = document.querySelector('.col-md-1.text-center strong');
+  newLivesElement.textContent = `Vie: ${lives}`;
 } 
 
 
@@ -181,7 +205,7 @@ function generateAndRenderGrid() {
     <tr>
       ${renderTableCell()}
       ${renderTableCell()}
-      ${renderTableCell()}
+      ${renderTableXCell()}
     </tr>
     <tr>
       ${renderTableCell()}

@@ -39,7 +39,7 @@ function getAllUsersLines(listUsers){
   <thead>
     <tr>
       <th>
-        Rank
+        Ranking
       </th>
       <th>
         Name

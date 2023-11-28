@@ -1,17 +1,21 @@
 // Import your CSS file here
 
-let remainingCorrectCalculations = 2; // Set the initial number of correct calculations
+let remainingCorrectCalculations = 0; // Set the initial number of correct calculations
+let correctResult = Math.floor(Math.random()* 5)
 
 const ModuloGamePage = () => renderPage();
 
 function renderPage() {
   const main = document.querySelector('main');
 
-  const { correctResult } = generateModuloQuestion();
+  // const { correctResult } = generateModuloQuestion();
+
+ 
+
 
   main.innerHTML = `
     <!-- Section 1 -->
-    <section class="p-3 mb-0" style="background-color: #4527A0; color: #FFF;">
+    <section class="p-3 mb-0 my-3" style="background-color: #4527A0; color: #FFF;">
       <div class="row">
         <!-- Game Name -->
         <div class="col-md-3">
@@ -72,39 +76,59 @@ function renderPage() {
       </section>
     </section>
   `;
+  
+  
 
   // Attach event listeners to table cells
   const cells = document.querySelectorAll('.grid-cell');
   cells.forEach(cell => {
-    cell.addEventListener('click', () => handleCellClick(cell, correctResult));
+    cell.addEventListener('click', () => handleCellClick(cell));
+
   });
+
+  if(remainingCorrectCalculations === 0) generateAndRenderGrid();
+  updateRemainingCalculations();
 }
 
 // function that handles the click event on a table cell
-function handleCellClick(cell, correctResult) {
-  const selectedCalculation = cell.textContent.trim();
-  const isCorrect = checkAnswer(selectedCalculation, correctResult);
+function handleCellClick(cell) {
+  const clicked = cell.getAttribute('data-clicked') === 'true';
 
-  if (isCorrect) {
-    remainingCorrectCalculations = Math.max(0, remainingCorrectCalculations - 1); // Decrease the count of remaining correct calculations
-    updateRemainingCalculations(); // Update the display
+  if (!clicked) {
+    const selectedCalculation = cell.textContent.trim();
+    const isCorrect = checkAnswer(selectedCalculation, correctResult);
+
+    cell.setAttribute('data-clicked', 'true'); // Marquer la cellule comme cliquée
+
+    if (isCorrect) {
+      remainingCorrectCalculations = Math.max(0, remainingCorrectCalculations - 1);
+      updateRemainingCalculations();
+
+      if (remainingCorrectCalculations === 0) generateAndRenderGrid();
+    }
+
+    const answerMessage = document.getElementById('answerMessage');
+    answerMessage.textContent = isCorrect ? 'Correct!' : 'Incorrect. Essaie encore!';
+  } else {
+    // La cellule a déjà été cliquée, ignorer le clic
+    const answerMessage = document.getElementById('answerMessage');
+    answerMessage.textContent = 'Cette case a déjà été sélectionnée.';
   }
-
-  const answerMessage = document.getElementById('answerMessage');
-  answerMessage.textContent = isCorrect ? 'Correct!' : 'Incorrect. Essaie encore!';
 }
 
 
+
 // fuction that generate modulo question automatically
-function generateModuloQuestion() {
+
+/* function generateModuloQuestion() {
   const a = Math.floor(Math.random() * 10) + 1;
   const b = Math.floor(Math.random() * 5) + 1;
   const correctResult = a % b;
   return { moduloQuestion: `${a} % ${b}`, correctResult };
-}
+} */
 
 // function that check if the answer is correct or not
-function checkAnswer(selectedCalculation, correctResult) {
+function checkAnswer(selectedCalculation) {
   const [a, b] = selectedCalculation.split('%').map(value => parseInt(value.trim(), 10));
   const userResult = a % b;
   return userResult === correctResult;
@@ -113,21 +137,67 @@ function checkAnswer(selectedCalculation, correctResult) {
 // function that generates a table cell with a random calculation
 
 function renderTableCell() {
-  const a = Math.floor(Math.random() * 10) + 1;
+  const a = Math.floor(Math.random() * 20) + 1;
   const b = Math.floor(Math.random() * 5) + 1;
+  if (a%b === correctResult) remainingCorrectCalculations += 1;
   return `
-    <td class="border border-color: rgba(69, 39, 160, 0.5) text-center grid-cell" style="background-color: #6F26A6; color: #FFF; width: 50px; height: 50px; padding: 10px;">
+    <td data-clicked="false" class="border border-color: rgba(69, 39, 160, 0.5) text-center grid-cell" style="background-color: #6F26A6; color: #FFF; width: 50px; height: 50px; padding: 10px;">
       <div class="content d-flex align-items-center justify-content-center" style="height: 100%;">
         ${a} % ${b}
       </div>
     </td>
-  `;
+  `
+  ;
 }
 
 // function that updates the element displaying the remaining number of calculations
 function updateRemainingCalculations() {
   const remainingCalculationsElement = document.querySelector('.col-md-2.text-right');
   remainingCalculationsElement.textContent = `${remainingCorrectCalculations} restantes`;
+}
+
+
+ function updateCorrectAnswer() {
+  const newcorrectAnswerElement = document.querySelector('.col-md-6.text-center strong');
+  newcorrectAnswerElement.textContent = `Réponse: ${correctResult}`;
+} 
+
+
+// function that generates and renders the grid
+function generateAndRenderGrid() {
+  const tableBody = document.querySelector('table tbody');
+  
+  // Generate a new correct result
+  correctResult = Math.floor(Math.random() * 5);
+   updateCorrectAnswer();  
+
+  // Update the content of the existing grid cells with new calculations
+  tableBody.innerHTML = `
+    <tr>
+      ${renderTableCell()}
+      ${renderTableCell()}
+      ${renderTableCell()}
+    </tr>
+    <tr>
+      ${renderTableCell()}
+      ${renderTableCell()}
+      ${renderTableCell()}
+    </tr>
+    <tr>
+      ${renderTableCell()}
+      ${renderTableCell()}
+      ${renderTableCell()}
+    </tr>
+  `;
+
+  // Attach event listeners to the new table cells
+  const cells = document.querySelectorAll('.grid-cell');
+  cells.forEach(cell => {
+    cell.addEventListener('click', () => handleCellClick(cell));
+  });
+
+  if(remainingCorrectCalculations === 0 ) generateAndRenderGrid();
+  updateRemainingCalculations();
 }
 
 export default ModuloGamePage;

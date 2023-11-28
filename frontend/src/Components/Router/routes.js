@@ -1,5 +1,6 @@
 import HomePage from '../Pages/HomePage';
 import NewPage from '../Pages/NewPage';
+import LeaderboardPage from '../Pages/LeaderboardPage';
 
 import AlgoGamePage from '../Pages/AlgoGamePage';
 import AlgoIntroPage from '../Pages/AlgoIntroPage'
@@ -14,6 +15,7 @@ import Logout from '../Logout/Logout';
 const routes = {
   '/': HomePage,
   '/game': GamePage,
+  '/LeaderboardPage': LeaderboardPage,
 	'/new': NewPage,
   '/game/algo': AlgoGamePage,
   '/game/modulo': ModuloGamePage,

@@ -94,8 +94,20 @@ function getNextId() {
   return nextId;
 }
 
+function usersOrderByScore(orderBy) {
+  const orderByScore = orderBy?.includes('score') ? orderBy : undefined;
+  let orderedLeaderboard;
+  const users = parse(jsonDbPath, defaultUsers);
+
+  if (orderByScore) orderedLeaderboard = [...users].sort((a, b) => b.highscore - a.highscore);
+
+  const usersPotentiallyOrdered = orderedLeaderboard ?? users;
+  return usersPotentiallyOrdered;
+}
+
 module.exports = {
   login,
   register,
   readOneUserFromUsername,
+  usersOrderByScore,
 };

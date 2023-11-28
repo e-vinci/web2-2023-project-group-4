@@ -1,5 +1,5 @@
 const path = require('node:path');
-const { parse, serialize } = require('../utils/json');
+const { parse } = require('../utils/json');
 
 const jsonDbPath = path.join(__dirname`/../data/leaderboard.json`);
 

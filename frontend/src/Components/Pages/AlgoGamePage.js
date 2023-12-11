@@ -1,160 +1,33 @@
-const AlgoGamePage = () => {
-  const content = `
-    <div class="container algo mt-4">
-      <div class="row algo">
-        <div class="col-algo">
-          <div id="option1" class="draggable alert alert-primary-algo" draggable="true" data-action="forward">Forward</div>
-          <div id="option2" class="draggable alert alert-primary-algo" draggable="true" data-action="turn-left">Left</div>
-        </div>
-        <div class="col-algo">
-          <div id="option3" class="draggable alert alert-primary-algo" draggable="true" data-action="turn-right">Right</div>
-          <div id="option4" class="draggable alert alert-primary-algo" draggable="true" data-action="repeat">Repeat</div>
-          <div id="droppable" class="alert alert-secondary-algo">
-            Drop here
-            <button id="executeButton">Move</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="grid-algo" id="gridAlgoGame">
-      <div class="cell-algo" id="cell.algoPage-0">0</div>
-      <div class="cell-algo" id="cell.algoPage-1">1</div>
-      <div class="cell-algo" id="cell.algoPage-2">2</div>
-      <div class="cell-algo" id="cell.algoPage-3">3</div>
-      <div class="cell-algo" id="cell.algoPage-4">4</div>
-      <div class="cell-algo" id="cell.algoPage-5">5</div>
-      <div class="cell-algo" id="cell.algoPage-6">6</div>
-      <div class="cell-algo" id="cell.algoPage-7">7</div>
-      <div class="cell-algo" id="cell.algoPage-8">8</div>
-    </div>`;
+import Phaser from 'phaser';
+import GameScene from '../Game/GameScene';
+
+let game;
+
+const GamePage = () => {
+  const phaserGame = `
+<div id="gameDiv" class="d-flex justify-content-center my-3">
+</div>`;
 
   const main = document.querySelector('main');
-  main.innerHTML = content;
-  main.style.display = 'flex';
-  main.style.justifyContent = 'center';
+  main.innerHTML = phaserGame;
 
-  attachEventListeners();
-
-  function attachEventListeners() {
-    const option1 = document.getElementById('option1');
-    const option2 = document.getElementById('option2');
-    const option3 = document.getElementById('option3');
-    const option4 = document.getElementById('option4');
-    const droppable = document.getElementById('droppable');
-    const executeButton = document.getElementById('executeButton');
-
-    [option1, option2, option3, option4].forEach(option => {
-      option.addEventListener('dragstart', (e) => {
-        e.dataTransfer.setData('text/plain', e.target.dataset.action);
-      });
-    });
-
-    droppable.addEventListener('dragover', (e) => {
-      e.preventDefault();
-    });
-
-    droppable.addEventListener('drop', (e) => {
-      e.preventDefault();
-      const data = e.dataTransfer.getData('text/plain');
-      if (data) {
-        if (data === 'repeat') {
-          const repeatCount = prompt('Enter the number of repetitions:');
-          if (repeatCount !== null) {
-            const newAction = document.createElement('div');
-            newAction.innerText = `repeat ${repeatCount}`;
-            droppable.appendChild(newAction);
-          }
-        } else {
-          const newAction = document.createElement('div');
-          newAction.innerText = data;
-          droppable.appendChild(newAction);
-        }
-      }
-    });
-
-    executeButton.addEventListener('click', () => {
-      const actions = Array.from(droppable.children).map(action => action.innerText);
-      executeActions(actions);
-    });
-  }
-
-  function executeActions(actions) {
-    const chatPosition = { x: 0, y: 0 };
-    let direction = 'right';
-
-    const intervalId = setInterval(() => {
-      if (actions.length > 0) {
-        const action = actions.shift();
-
-        if (action.startsWith('repeat')) {
-          const parts = action.split(' ');
-          const repeatValue = parseInt(parts[1], 10) || 0;
-          for (let i = 0; i < repeatValue-1; i += 1) {
-            executeAction(actions[0]); // Execute the next action in the repeat loop
-          }
-        } else {
-          executeAction(action);
-        }
-      } else {
-        clearInterval(intervalId);
-      }
-    }, 1000);
-
-    function executeAction(action) {
-      switch (action) {
-        case 'forward':
-          moveForward();
-          break;
-        case 'turn-left':
-          direction = rotateLeft(direction);
-          break;
-        case 'turn-right':
-          direction = rotateRight(direction);
-          break;
-        default:
-          console.log(`Unknown action: ${action}`);
-      }
-
-      const catCellId = `cell.algoPage-${chatPosition.x + 3 * chatPosition.y}`;
-      const catCell = document.getElementById(catCellId);
-
-      document.querySelectorAll('.cell-algo').forEach(cell => cell.classList.remove('cat-algo'));
-
-      catCell.classList.add('cat-algo');
-      console.log('Current position of the cat:', chatPosition);
-    }
-
-    function moveForward() {
-      switch (direction) {
-        case 'right':
-          chatPosition.x += 1;
-          break;
-        case 'left':
-          chatPosition.x -= 1;
-          break;
-        case 'up':
-          chatPosition.y -= 1;
-          break;
-        case 'down':
-          chatPosition.y += 1;
-          break;
-        default:
-          break;
-      }
-    }
-
-    function rotateLeft(dir) {
-      const directions = ['up', 'left', 'down', 'right'];
-      const currentIndex = directions.indexOf(dir);
-      return currentIndex === 0 ? directions[3] : directions[currentIndex - 1];
-    }
-
-    function rotateRight(dir) {
-      const directions = ['up', 'left', 'down', 'right'];
-      const currentIndex = directions.indexOf(dir);
-      return currentIndex === 3 ? directions[0] : directions[currentIndex + 1];
-    }
-  }
+  const config = {
+    type: Phaser.AUTO,
+    width: 1520,
+    height: 700,
+    physics: {
+      default: 'arcade',
+      arcade: {
+        gravity: { y: 300 },
+        debug: false,
+      },
+    },
+    scene: [GameScene],
+    parent: 'gameDiv',
+  };
+  
+  if (game) game.destroy(true);
+  game = new Phaser.Game(config);
 };
 
-export default AlgoGamePage;
+export default GamePage;

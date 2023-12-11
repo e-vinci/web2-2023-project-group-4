@@ -6,6 +6,7 @@ const LeaderboardPage = async () =>{
   try {
     clearPage();
     renderPageTitle('Scores'); 
+    renderUsers('sd');
     
     const result = await fetch(`${process.env.API_BASE_URL}/leaderboard`,{
       method: 'POST',

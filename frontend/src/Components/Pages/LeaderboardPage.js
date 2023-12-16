@@ -8,15 +8,17 @@ const LeaderboardPage = async () =>{
     renderPageTitle('Scores'); 
     renderUsers('sd');
     
-    const result = await fetch(`${process.env.API_BASE_URL}/leaderboard`,{
+    const result = await fetch('api/leaderboard',{
       method: 'POST',
+      body: JSON.stringify({
+       
+      }), 
       headers: {
           'Content-Type': 'application/json'
       }
     });
 
     const users = await result.json();
-    
     renderUsers(users);
 
     const main = document.querySelector("main");

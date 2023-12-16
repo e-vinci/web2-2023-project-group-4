@@ -24,6 +24,7 @@ class AlgoGameScene extends Phaser.Scene
         this.add.sprite(400, 300, 'cat1')
             .play('snooze');
     }
+    
 
 }
 

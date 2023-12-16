@@ -1,10 +1,12 @@
-/* const express = require('express');
-const { getAllScores } = require('../models/leaderboard');
-const { authorize, isAdmin } = require('../utils/auths');
+const express = require('express');
+const { readAllScoresSorted } = require('../models/leaderboard');
 
 const router = express.Router();
-const jsonDbPath = path.join(__dirname, '/../data/users.json');
 
- return leaderboard by highest score
-router.post('/', (req, res) => {
-}); */
+// return leaderboard by highest score
+router.get('/', async (req, res) => {
+  const sortedUser = readAllScoresSorted();
+  if (sortedUser === undefined) return res.sendStatus(400);
+
+  return res.json(sortedUser);
+});

@@ -21,11 +21,13 @@ const defaultScores = [
   },
 ];
 
-function readAllScores() {
-  const scores = parse(jsonDbPath, defaultScores);
-  return scores;
+function readAllScoresSorted() {
+  const users = parse(jsonDbPath, defaultScores);
+  const usersScoreSorted = users.sort((a, b) => b.nbClick - a.nbClick);
+
+  return usersScoreSorted;
 }
 
 module.exports = {
-  readAllScores,
+  readAllScoresSorted,
 };

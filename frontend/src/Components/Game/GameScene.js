@@ -5,8 +5,12 @@ import rightImg from '../../assets/right.jpg';
 import repeatImg from '../../assets/repeat.png';
 import catImg from '../../assets/logo_ebauche.png';
 import cancelImg from '../../assets/cancel.jpg';
+import metalTiles from '../../assets/Metal_tiles1_extra_4_colors.png';
+
+
 
 class GameScene extends Phaser.Scene {
+  
   constructor() {
     super({ key: 'GameScene' });
     this.actionsSequence = [];
@@ -20,17 +24,19 @@ class GameScene extends Phaser.Scene {
     this.load.image('repeat', repeatImg);
     this.load.image('cat', catImg);
     this.load.image('cancel', cancelImg);
+    this.load.image('metalTiles',metalTiles);
   }
 
   create() {
-    const chat = this.add.image(100, 100, 'cat').setScale(0.1);
-
+    const cat = this.add.image(100, 100, 'cat').setScale(0.1);
     const actions = {
-      forward: this.add.image(200, 500, 'forward').setScale(0.5),
-      left: this.add.image(300, 500, 'left').setScale(0.5),
-      right: this.add.image(400, 500, 'right').setScale(0.5),
-      repeat: this.add.image(500, 500, 'repeat').setScale(0.5)
+      forward: this.add.image(100, 100, 'forward').setScale(0.5),
+      left: this.add.image(100, 100, 'left').setScale(0.5),
+      right: this.add.image(100, 100, 'right').setScale(0.5),
+      repeat: this.add.image(100, 100, 'repeat').setScale(0.5)
     };
+
+   
 
     Object.keys(actions).forEach(action => {
       actions[action].setInteractive({ draggable: true });
@@ -57,21 +63,30 @@ class GameScene extends Phaser.Scene {
     const executerBouton = this.add.text(1400, 50, 'Exécuter', { fill: '#ffffff' }).setInteractive();
     executerBouton.on('pointerdown', () => {
       this.currentActionIndex = 0;
-      this.moveChat(chat);
+      this.moveCat(cat);
     });
   }
 
-  moveChat(chat) {
+  createMapTiles(){
+    const map = this.make.tilemap({key: 'gamescene'});
+    const tilset = map.addTilesetImage('metalicTiles','metalTiles');
+
+    const ground = map.createLayer('ground',tilset);
+
+    this.physics.world.setBounds(0, 0, ground.width, ground.height);
+  }
+
+  moveCat(cat) {
     if (this.currentActionIndex < this.actionsSequence.length) {
       const nextAction = this.actionsSequence[this.currentActionIndex];
       this.tweens.add({
-        targets: chat,
+        targets: cat,
         x: nextAction.x,
         y: nextAction.y,
-        duration: 500,
+        duration: 10,
         onComplete: () => {
           this.currentActionIndex += 1;
-          this.moveChat(chat);
+          this.moveCat(cat);
         }
       });
     } else {

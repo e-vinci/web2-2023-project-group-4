@@ -29,7 +29,7 @@ function renderPage() {
         </div>
         <!-- Score -->
         <div class="col-md-1 text-center">
-          <strong> Score : ${score}</strong> 
+          <strong> Score : ${score} </strong> 
         </div>
         <!-- Answer -->
         <div class="col-md-3 text-center" id="answerContent">
@@ -86,7 +86,31 @@ function renderPage() {
         </table>
       </section>
     </section>
-  `;
+    
+    <--- popup fin de jeu --->
+
+    <div class="modal" id="modal">
+      <div class="modal-back">
+      </div>
+      <div class="modal-container">
+        <p class="elem1">GAME OVER</p>
+        <div class="scorefin">
+          <p>votre score est : ${score} </p>
+        </div>
+        <br>
+        <a href="/updatepage" class="popup"  >
+          <h5 class="btn_popup"> REJOUER </h5>
+        </a>
+          
+        <a href="/retour-homepage" class="popup" >
+          <h5 class="btn_popup "> HOMEPAGE </h5>
+        </a>
+          
+      </div>
+    </div>
+  
+    `
+  ;
   
   
 
@@ -96,6 +120,20 @@ function renderPage() {
     cell.addEventListener('click', () => handleCellClick(cell));
 
   });
+
+  // play again
+const gameIntroAlgoPage = document.querySelector('[href="/updatepage"]');
+gameIntroAlgoPage.addEventListener('click', (event) => {
+  event.preventDefault();
+  window.location.href = '/game/modulo';
+})
+
+// go back to homepage
+const gameIntroModuloPage = document.querySelector('[href="/retour-homepage"]');
+gameIntroModuloPage.addEventListener('click', (event) => {
+  event.preventDefault();
+  window.location.href = '/';
+})
 
   if(remainingCorrectCalculations === 0) generateAndRenderGrid();
   updateRemainingCalculations();
@@ -187,6 +225,12 @@ function updateScore() {
   newScoreElement.textContent = `Score: ${score}`;
 } 
 
+function updateScorefin(){
+  const newcorrectAnswerElement = document.querySelector('.scorefin');
+  newcorrectAnswerElement.textContent = `votre score est : ${score} `;
+
+}
+
 // function that updates the lives
 function updateLives() {
   const newLivesElement = document.querySelector('.col.text-center strong');
@@ -200,7 +244,10 @@ function updateLives() {
   newLivesElement.innerHTML  = `Vie:<img src="${heart}" alt="Filled Heart" width = 30 /><img src="${emptyheart}" alt="Empty Heart" width = 30/><img src="${emptyheart}" alt="Empty Heart" width = 30/><img src="${emptyheart}" alt="Empty Heart" width = 30/>`;
   } else if (lives === 0){
   newLivesElement.innerHTML  = `Vie:<img src="${emptyheart}" alt="Empty Heart" width = 30/><img src="${emptyheart}" alt="Empty Heart" width = 30/><img src="${emptyheart}" alt="Empty Heart" width = 30/><img src="${emptyheart}" alt="Empty Heart" width = 30/>`;
-  }
+  updateScorefin();
+  document.getElementById('modal').style.display = 'block';
+  
+}
 } 
 
 
@@ -240,5 +287,7 @@ function generateAndRenderGrid() {
   if(remainingCorrectCalculations === 0 ) generateAndRenderGrid();
   updateRemainingCalculations();
 }
+
+
 
 export default ModuloGamePage;

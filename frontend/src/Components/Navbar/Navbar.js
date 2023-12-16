@@ -40,7 +40,7 @@ function renderNavbar(){
                 <a class="nav-link" href="#" data-uri="/">A propos de nous</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/">Classement</a>
+                <a class="nav-link" href="#" data-uri="/LeaderboardPage">Classement</a>
               </li>                         
             </ul>
             <ul class="navbar-nav">

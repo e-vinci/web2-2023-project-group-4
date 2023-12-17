@@ -15,7 +15,7 @@ import Logout from '../Logout/Logout';
 const routes = {
   '/': HomePage,
   '/game': GamePage,
-  '/LeaderboardPage': LeaderboardPage,
+  '/leaderboardPage': LeaderboardPage,
 	'/new': NewPage,
   '/game/algo': AlgoGamePage,
   '/game/modulo': ModuloGamePage,

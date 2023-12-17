@@ -12,8 +12,7 @@ const AlgoIntroPage = () => {
                     <img src="${AlgoPic}" class="card-img-top" alt="Image du Jeu 1" style="object-fit: contain; width: 300px;">
                 </div>
                 <div class="col-md-4 my-5 text-center ">
-                        <h3>L'algo</h3>
-                        <h6>lorem ipsum</h6>
+                        <h3>La Gamelle</h3>
                 </div>
                 <div class="col-md-4">    
                     <img src="${logo}" class="card-img-top" alt="logo" style="object-fit: contain; width: 300px; margin-left: 200px; ">

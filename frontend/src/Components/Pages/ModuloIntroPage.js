@@ -13,7 +13,6 @@ const ModuloIntroPage = () => {
                     </div>    
                     <div class="col-md-4 my-5 text-center">
                         <h3>Le modulo</h3>
-                        <h6>lorem ipsum</h6>
                     </div>
                     <div class="col-md-4">
                         <img src="${logo}" class="card-img-top" alt="logo" style="object-fit: contain; width: 300px; margin-left: 200px; ">

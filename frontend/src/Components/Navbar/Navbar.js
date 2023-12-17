@@ -37,9 +37,6 @@ function renderNavbar(){
                 <a class="nav-link" href="#" data-uri="/game">Jeux</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/">A propos de nous</a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link" href="#" data-uri="/leaderboardPage">Classement</a>
               </li>                         
             </ul>

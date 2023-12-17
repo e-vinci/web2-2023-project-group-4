@@ -4,7 +4,7 @@ import game1Pic from '../../assets/AlgoIntro.png';
 
 const GamePage = () => {
   const game1Description = `
-    Un jeu pour apprendre les bases en Algorithmique
+    Rejoignez la gamelle du chat en évitant les pièges
   `;
 
   const game2Description = `
@@ -19,9 +19,8 @@ const GamePage = () => {
           <div class="card">
             <img src="${game1Pic}" class="card-img-top h-100" alt="Image du Jeu 1" style="object-fit: cover; ">
             <div class="card-body">
-              <h5 class="text-center">Nom du jeu 1</h5>
-              <h6 class="text-center">Chemin du chat</h6>
-              <h5 class="card-title text-center border rounded">JAVA</h5>
+              <h5 class="text-center">Chemin du chat</h5>
+              <h5 class="card-title text-center border rounded">Gamelle</h5>
               <p class="card-text text-center">${game1Description}</p>
             </div>
           </div>
@@ -32,8 +31,7 @@ const GamePage = () => {
           <div class="card">
             <img src=${game2Pic} class="card-img-top h-100" alt="Image du Jeu 2" style="object-fit: cover; ">
             <div class="card-body">
-              <h5 class="text-center">Nom du jeu 2</h5>
-              <h6 class="text-center">Analyseur de codes modulo</h6>
+              <h5 class="text-center">Analyseur de codes modulo</h5>
               <h5 class="card-title text-center border rounded">Mathématique</h5>
               <p class="card-text text-center">${game2Description}</p>
             </div>

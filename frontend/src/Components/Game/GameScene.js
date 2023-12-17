@@ -1,170 +1,168 @@
 import Phaser from 'phaser';
-import ScoreLabel from './ScoreLabel';
-import BombSpawner from './BombSpawner';
-import skyAsset from '../../assets/sky.png';
-import platformAsset from '../../assets/platform.png';
-import starAsset from '../../assets/star.png';
-import bombAsset from '../../assets/bomb.png';
-import dudeAsset from '../../assets/dude.png';
+import cat from '../../assets/logo_ebauche.png';
+import goal from '../../assets/food.png';
+import trap from '../../assets/trap.png';
 
-const GROUND_KEY = 'ground';
-const DUDE_KEY = 'dude';
-const STAR_KEY = 'star';
-const BOMB_KEY = 'bomb';
+const SCENE_WIDTH = window.innerWidth;
+const SCENE_HEIGHT = 600;
+const PLAYER_SCALE = 0.1;
+const GOAL_SCALE = 0.5;
+const OBSTACLE_SCALE = 0.05;
 
-class GameScene extends Phaser.Scene {
+export default class GameScene extends Phaser.Scene {
   constructor() {
-    super('game-scene');
-    this.player = undefined;
-    this.cursors = undefined;
-    this.scoreLabel = undefined;
-    this.stars = undefined;
-    this.bombSpawner = undefined;
-    this.gameOver = false;
+    super({ key: 'GameScene' });
+    this.timeElapsed = 0;
+    this.currentLevel = 1;
   }
 
   preload() {
-    this.load.image('sky', skyAsset);
-    this.load.image(GROUND_KEY, platformAsset);
-    this.load.image(STAR_KEY, starAsset);
-    this.load.image(BOMB_KEY, bombAsset);
-
-    this.load.spritesheet(DUDE_KEY, dudeAsset, {
-      frameWidth: 32,
-      frameHeight: 48,
-    });
+    this.load.image('cat', cat);
+    this.load.image('goal', goal);
+    this.load.image('obstacle', trap);
   }
 
   create() {
-    this.add.image(400, 300, 'sky');
-    const platforms = this.createPlatforms();
-    this.player = this.createPlayer();
-    this.stars = this.createStars();
-    this.scoreLabel = this.createScoreLabel(16, 16, 0);
-    this.bombSpawner = new BombSpawner(this, BOMB_KEY);
-    const bombsGroup = this.bombSpawner.group;
-    this.physics.add.collider(this.stars, platforms);
-    this.physics.add.collider(this.player, platforms);
-    this.physics.add.collider(bombsGroup, platforms);
-    this.physics.add.collider(this.player, bombsGroup, this.hitBomb, null, this);
-    this.physics.add.overlap(this.player, this.stars, this.collectStar, null, this);
-    this.cursors = this.input.keyboard.createCursorKeys();
-
-    /* The Collider takes two objects and tests for collision and performs separation against them.
-    Note that we could call a callback in case of collision... */
+    this.initializeUI();
+    this.setupEnvironment();
+    this.setupKeyboardControls();
+    this.setupTimer();
   }
 
   update() {
-    if (this.gameOver) {
-      return;
-    }
+    this.handlePlayerMovement();
+    this.checkGoalCollision();
+    this.checkObstacleCollision();
+  }
+
+  setupEnvironment() {
+    this.player = this.createPlayer(100, 450);
+    this.goal = this.createGoal(700, 100);
+
+    this.physics.add.existing(this.player);
+    this.physics.add.existing(this.goal);
+
+    this.obstacles = this.physics.add.group();
+    this.physics.world.setBounds(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
+
+    this.createLevel();
+  }
+
+  setupKeyboardControls() {
+    this.cursors = this.input.keyboard.createCursorKeys();
+  }
+
+  initializeUI() {
+    this.timeText = this.add.text(16, 48, 'Time: 0', { fontSize: '24px', fill: '#fff' });
+  }
+
+  setupTimer() {
+    this.time.addEvent({
+      delay: 1000,
+      callback: this.updateTime,
+      callbackScope: this,
+      loop: true,
+    });
+  }
+
+  handlePlayerMovement() {
+    let velocityX = 0;
+    let velocityY = 0;
 
     if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-160);
-      this.player.anims.play('left', true);
+      velocityX = -200;
     } else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(160);
-      this.player.anims.play('right', true);
-    } else {
-      this.player.setVelocityX(0);
-      this.player.anims.play('turn');
+      velocityX = 200;
     }
 
-    if (this.cursors.up.isDown && this.player.body.touching.down) {
-      this.player.setVelocityY(-330);
+    if (this.cursors.up.isDown) {
+      velocityY = -200;
+    } else if (this.cursors.down.isDown) {
+      velocityY = 200;
+    }
+
+    this.player.setVelocityX(velocityX);
+    this.player.setVelocityY(velocityY);
+  }
+
+  checkGoalCollision() {
+    if (Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), this.goal.getBounds())) {
+      this.currentLevel += 1;
+
+      if (this.currentLevel <= 3) {
+        this.createLevel();
+      } else {
+        this.scene.start('VictoryScene', { totalElapsedTime: this.timeElapsed });
+      }
     }
   }
 
-  createPlatforms() {
-    const platforms = this.physics.add.staticGroup();
-
-    platforms
-      .create(400, 568, GROUND_KEY)
-      .setScale(2)
-      .refreshBody();
-
-    platforms.create(600, 400, GROUND_KEY);
-    platforms.create(50, 250, GROUND_KEY);
-    platforms.create(750, 220, GROUND_KEY);
-    return platforms;
+  checkObstacleCollision() {
+    this.obstacles.children.iterate((obstacle) => {
+      if (Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), obstacle.getBounds())) {
+        this.scene.start('FailureScene');
+      }
+    });
   }
 
-  createPlayer() {
-    const player = this.physics.add.sprite(100, 450, DUDE_KEY);
-    player.setBounce(0.2);
+  updateTime() {
+    this.timeElapsed += 1;
+    this.timeText.setText(`Time: ${this.timeElapsed}`);
+  }
+
+  createPlayer(x, y) {
+    const player = this.physics.add.sprite(x, y, 'cat').setScale(PLAYER_SCALE);
     player.setCollideWorldBounds(true);
-    /* The 'left' animation uses frames 0, 1, 2 and 3 and runs at 10 frames per second.
-    The 'repeat -1' value tells the animation to loop.
-    */
-    this.anims.create({
-      key: 'left',
-      frames: this.anims.generateFrameNumbers(DUDE_KEY, { start: 0, end: 3 }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: 'turn',
-      frames: [{ key: DUDE_KEY, frame: 4 }],
-      frameRate: 20,
-    });
-
-    this.anims.create({
-      key: 'right',
-      frames: this.anims.generateFrameNumbers(DUDE_KEY, { start: 5, end: 8 }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
     return player;
   }
 
-  createStars() {
-    const stars = this.physics.add.group({
-      key: STAR_KEY,
-      repeat: 11,
-      setXY: { x: 12, y: 0, stepX: 70 },
-    });
-
-    stars.children.iterate((child) => {
-      child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-    });
-
-    return stars;
+  createGoal(x, y) {
+    return this.physics.add.sprite(x, y, 'goal').setScale(GOAL_SCALE);
   }
 
-  collectStar(player, star) {
-    star.disableBody(true, true);
-    this.scoreLabel.add(10);
-    if (this.stars.countActive(true) === 0) {
-      //  A new batch of stars to collect
-      this.stars.children.iterate((child) => {
-        child.enableBody(true, child.x, 0, true, true);
-      });
+  createLevel() {
+    this.player.setPosition(100, 450);
+    this.goal.setPosition(700, 100);
+
+    this.timeElapsed = 0;
+
+    this.player.setVelocity(0);
+
+    const levelConfig = GameScene.getLevelConfig(this.currentLevel);
+
+    this.obstacles.clear(true, true);
+    this.createRandomObstacles(levelConfig.numObstacles);
+
+    this.timeText.setText(`Time: ${this.timeElapsed}`);
+  }
+
+  static getLevelConfig(level) {
+    switch (level) {
+      case 1:
+        return { numObstacles: 5, obstacleSpeed: 150 };
+      case 2:
+        return { numObstacles: 8, obstacleSpeed: 200 };
+      case 3:
+        return { numObstacles: 10, obstacleSpeed: 250 };
+      default:
+        return { numObstacles: 5, obstacleSpeed: 150 };
     }
-
-    this.bombSpawner.spawn(player.x);
   }
 
-  createScoreLabel(x, y, score) {
-    const style = { fontSize: '32px', fill: '#000' };
-    const label = new ScoreLabel(this, x, y, score, style);
-    console.log('score:', label);
-    this.add.existing(label);
+  createRandomObstacles(numObstacles) {
+    for (let i = 0; i < numObstacles; i += 1) {
+      let x;
+      let y;
+      let obstacleOverlap;
 
-    return label;
-  }
+      do {
+        x = Phaser.Math.Between(0, SCENE_WIDTH);
+        y = Phaser.Math.Between(0, SCENE_HEIGHT);
+        obstacleOverlap = this.physics.overlap(this.player, this.obstacles, () => true);
+      } while (obstacleOverlap);
 
-  hitBomb(player) {
-    this.scoreLabel.setText(`GAME OVER : ( \nYour Score = ${this.scoreLabel.score}`);
-    this.physics.pause();
-
-    player.setTint(0xff0000);
-
-    player.anims.play('turn');
-
-    this.gameOver = true;
+      const obstacle = this.physics.add.sprite(x, y, 'obstacle').setScale(OBSTACLE_SCALE);
+      this.obstacles.add(obstacle);
+    }
   }
 }
-
-export default GameScene;

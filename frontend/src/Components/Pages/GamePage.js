@@ -1,36 +1,65 @@
-import Phaser from 'phaser';
-import GameScene from '../Game/GameScene';
-
-let game;
+import game2Pic from '../../assets/math.jpg';
+import game1Pic from '../../assets/AlgoIntro.png';
+// import game1Pic from '../../assets/3a7be1d8c3752396876e4195f58dd32d.jpg'
 
 const GamePage = () => {
-  const phaserGame = `
-<div id="gameDiv" class="d-flex justify-content-center my-3">
-</div>`;
+  const game1Description = `
+    Un jeu pour apprendre les bases en Algorithmique
+  `;
+
+  const game2Description = `
+    Un jeu pour comprendre les modulo en Mathématique
+  `;
+
+  const gamePageContent = `
+  <div class="container my-5">
+    <div class="row">
+      <div class="col mb-4">
+        <a href="/lien-vers-IntroAlgo" class="text-decoration-none">
+          <div class="card">
+            <img src="${game1Pic}" class="card-img-top h-100" alt="Image du Jeu 1" style="object-fit: cover; ">
+            <div class="card-body">
+              <h5 class="text-center">Nom du jeu 1</h5>
+              <h6 class="text-center">Chemin du chat</h6>
+              <h5 class="card-title text-center border rounded">JAVA</h5>
+              <p class="card-text text-center">${game1Description}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col mb-4">
+        <a href="/lien-vers-IntroModulo" class="text-decoration-none">
+          <div class="card">
+            <img src=${game2Pic} class="card-img-top h-100" alt="Image du Jeu 2" style="object-fit: cover; ">
+            <div class="card-body">
+              <h5 class="text-center">Nom du jeu 2</h5>
+              <h6 class="text-center">Analyseur de codes modulo</h6>
+              <h5 class="card-title text-center border rounded">Mathématique</h5>
+              <p class="card-text text-center">${game2Description}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+`;
 
   const main = document.querySelector('main');
-  main.innerHTML = phaserGame;
+  main.innerHTML = gamePageContent;
+  main.style.display = 'flex';
+  main.style.justifyContent = 'center';
 
-  const config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    physics: {
-      default: 'arcade',
-      arcade: {
-        gravity: { y: 300 },
-        debug: false,
-      },
-    },
-    scene: [GameScene],
-    //  parent DOM element into which the canvas created by the renderer will be injected.
-    parent: 'gameDiv',
-  };
+  const gameIntroAlgoPage = document.querySelector('[href="/lien-vers-IntroAlgo"]');
+  gameIntroAlgoPage.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.location.href = '/game/algoIntro';
+  })
 
-  // there could be issues when a game was quit (events no longer working)
-  // therefore destroy any started game prior to recreate it
-  if (game) game.destroy(true);
-  game = new Phaser.Game(config);
+  const gameIntroModuloPage = document.querySelector('[href="/lien-vers-IntroModulo"]');
+  gameIntroModuloPage.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.location.href = '/game/moduloIntro';
+  })
 };
 
 export default GamePage;

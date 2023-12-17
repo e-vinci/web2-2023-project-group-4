@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const path = require('node:path');
 const { parse, serialize } = require('../utils/json');
 
-const jwtSecret = 'ilovemypizza!';
+const jwtSecret = 'ilovecat!';
 const lifetimeJwt = 24 * 60 * 60 * 1000; // in ms : 24 * 60 * 60 * 1000 = 24h
 
 const saltRounds = 10;
@@ -94,8 +94,20 @@ function getNextId() {
   return nextId;
 }
 
+function usersOrderByScore(orderBy) {
+  const orderByScore = orderBy?.includes('score') ? orderBy : undefined;
+  let orderedLeaderboard;
+  const users = parse(jsonDbPath, defaultUsers);
+
+  if (orderByScore) orderedLeaderboard = [...users].sort((a, b) => b.highscore - a.highscore);
+
+  const usersPotentiallyOrdered = orderedLeaderboard ?? users;
+  return usersPotentiallyOrdered;
+}
+
 module.exports = {
   login,
   register,
   readOneUserFromUsername,
+  usersOrderByScore,
 };

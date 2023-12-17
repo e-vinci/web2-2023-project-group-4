@@ -48,24 +48,24 @@ function renderPage() {
       <div class="container third">
           <!-- title -->
           <div class="row text-center" >
-              <h4 class="text-primary">Créez un compte pour bénéficier de ces avantages :</h4>
+              <h4>Créez un compte pour bénéficier de ces avantages :</h4>
           </div>
           <!-- benefits description -->
           <div class="row">
               <!-- first benefit -->
-              <div class="col border">
-                  <h6 class="text-primary">Point de contrôle :</h6>
-                  <p class="text-primary">Enregistrez votre progression pour ne pas la perdre.</p>
+              <div class="col border-info first">
+                  <h6>Point de contrôle :</h6>
+                  <p>Enregistrez votre progression pour ne pas la perdre.</p>
               </div>
               <!-- second benefit -->
-              <div class="col border">
-                  <h6 class="text-primary">Classement :</h6>
-                  <p class="text-primary">Vous pouvez suivre votre classement avec vos scores obtenus.</p>
+              <div class="col border-info first">
+                  <h6>Classement :</h6>
+                  <p>Vous pouvez suivre votre classement avec vos scores obtenus.</p>
               </div>
               <!-- third benefit -->
-              <div class="col border">
-                  <h6 class="text-primary">Accès à tout :</h6>
-                  <p class="text-primary">Vous pouvez accéder à des minis projets pour vous challenger.</p>
+              <div class="col border-info first">
+                  <h6>Accès à tout :</h6>
+                  <p>Vous pouvez accéder à des minis projets pour vous challenger.</p>
               </div>
           </div>
       </div>

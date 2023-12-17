@@ -13,13 +13,13 @@ const GamePage = () => {
 
   const config = {
     type: Phaser.AUTO,
-    width: window.innerWidth, // Responsive width
+    width: window.innerWidth,
     height: 600,
     physics: {
       default: 'arcade',
       arcade: {
         gravity: { y: 0 },
-        debug: true, // Enable debug mode during development
+        debug: false, // Set to false for production
       },
     },
     scene: [GameScene, VictoryScene, FailureScene],

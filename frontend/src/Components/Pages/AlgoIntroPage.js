@@ -12,14 +12,14 @@ const AlgoIntroPage = () => {
                     <img src="${AlgoPic}" class="card-img-top" alt="Image du Jeu 1" style="object-fit: contain; width: 300px;">
                 </div>
                 <div class="col-md-4 my-5 text-center ">
-                        <h3>La Gamelle</h3>
+                <h2 class="text-center">Chemin du Chat</h2>
                 </div>
                 <div class="col-md-4">    
                     <img src="${logo}" class="card-img-top" alt="logo" style="object-fit: contain; width: 300px; margin-left: 200px; ">
                 </div>
             </div>
             <div class="card-body">
-                <h2 class="text-center">Chemin du Chat</h2>
+               
                  <h6 class="text-center">Dans ce jeu vous devrez faire en sorte qu'un chat arrive a son poisson. <br>
                                         Pour cela vous devrez selectionnez une serie d'instruction et le chat suiveras ses instruction pour esperez arriver au poisson<br>
                                         Votre score sera calculer en fonction du temps que vous mettez a faire votre serie et de si vous avez le nombre minimal de mouvement<br> 

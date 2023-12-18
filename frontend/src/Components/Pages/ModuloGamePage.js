@@ -52,18 +52,21 @@ function renderPage() {
     
     <!-- Section 2 and 3 side by side -->
       <!-- color :  #330066 -->
-      <section class="row mx-0" style="background-color: rgba(51, 0, 102, 0.8);  color: #FFF;">
+      <section class="row mx-0" style="background-color: rgba(51, 0, 102, 0.95);  color: #FFF;min-height: 450px;">
       <!-- Tutorial of the game -->
-      <section class="col-md-3 p-3 mb-3" style="background-color: #330066; color: #FFF;">
+      <section class="col-md-3 p-3 mb-3" color: #FFF;">
         <strong>Tutoriel du jeu:</strong>
         <p>
-          Explication de comment jouer le jeu (avec des flèches pour bouger et sélectionner avec la space bar)
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, quam fugit! Vero, exercitationem. Veritatis in architecto nemo officiis, aut eveniet? Natus hic maiores molestias neque vero iste eos ipsum asperiores?
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, quam fugit! Vero, exercitationem. Veritatis in architecto nemo officiis, aut eveniet? Natus hic maiores molestias neque vero iste eos ipsum asperiores?
+        Utilisez votre souris pour sélectionner tous les calculs modulo et expressions dans les cases qui équivalent à la valeur indiquée dans "Réponse : "
         </p>
+        <strong>Remarques:</strong>
+        <ul>
+            <li>Vous disposez de quatre vies, sinon vous devrez recommencer la partie</li>
+            <li>Il vous est également indiqué le nombre de calculs corrects restant dans les cases.</li>
+        </ul>
       </section>
       <!-- The game part -->
-      <section class="col-md-9 p-3 mb-3" style="background-color: #330066; color: #FFF;">
+      <section class="col-md-9 p-3 mb-3" color: #FFF;">
         <!-- Grid as a table -->
         <table class="table table-bordered table-responsive h-100">
           <tbody>
@@ -87,7 +90,6 @@ function renderPage() {
       </section>
     </section>
     
-    <--- popup fin de jeu --->
 
     <div class="modal" id="modal">
       <div class="modal-back">

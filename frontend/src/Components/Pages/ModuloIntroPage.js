@@ -12,14 +12,14 @@ const ModuloIntroPage = () => {
                         <img src="${mathpic}" class="card-img-top" alt="Image du Jeu 1" style="object-fit: contain; width: 400px;">
                     </div>    
                     <div class="col-md-4 my-5 text-center">
-                        <h3>Le modulo</h3>
+                        <h3>Modulo</h3>
                     </div>
                     <div class="col-md-4">
                         <img src="${logo}" class="card-img-top" alt="logo" style="object-fit: contain; width: 300px; margin-left: 200px; ">
                     </div>
                 </div>
                 <div class="card-body">
-                    <h2 class="text-center">Le juste modulo</h2>
+                    
                     <h6 class="text-center">Dans ce jeu vous devrez faire en sorte que le chat arrive a attrapper les bons numero. <br>
                                             Vous aurez une reponse. et un serie de equation possible. Le but est de trouver toutes les equation qui ont comme solution la reponse au dessus<br>                                                    
                                             Votre score sera calculer en fonction du temps que vous mettez a faire votre serie et en fonction de la veracité des reponsecheckout ma<br> 

@@ -3,10 +3,11 @@ const { Users } = require('../models/users');
 /* const { authorize } = require('../utils/auths'); */
 
 const router = express.Router();
-const userModels = new Users();
+
 
 /* GET users listing. */
 router.get('/', (req, res) => {
+  const userModels = new Users();
   const allUsers = userModels.getAllUsers(req.params.username);
   return res.json(allUsers);
 });
